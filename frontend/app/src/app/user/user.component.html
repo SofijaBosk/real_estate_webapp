@@ -1,0 +1,333 @@
+
+<table>
+    <tr >
+        
+        <td *ngFor='let n of svePromovisaneNekretnine'>
+            <img (click)="idiNaNekretninu(n)" src="{{n.slike[0]}}" class='promovisane' >
+        </td>
+    </tr>
+</table>
+
+
+
+Profilna: <img class="slika" src='{{currentUser.picture}}'>
+<h2>Korisnik: {{currentUser.name}} {{currentUser.surname}}</h2>
+
+
+
+<!-- <input type="checkbox" [(ngModel)]="promeni"> -->
+<button (click)='promeniPodatke()' >Azuriraj profil</button>
+<button (click)='pogredajSvojeNekretnine()' >Moje nekretnine</button>
+<button (click)='passwordChange()'>Promeni lozinku</button>
+
+
+
+
+<table *ngIf='azuriranje'>
+    Azuriraj podatke:
+    <div  [formGroup]="form">
+    <tr>
+        <td>Name:</td>
+        <td>
+            <input type="text" name='name'  formControlName='name'>
+        </td>
+    </tr>
+    <tr>
+        <td>Surname:</td>
+        <td> 
+            <input type="text" name='surname'  formControlName='surname'>
+        </td>
+    </tr>
+    <tr>
+        <td>Username:</td>
+        <td>
+            <input type="text" name='username' formControlName='username'>
+        </td>
+    </tr>
+    <tr>
+        <td>Password:</td>
+        <td>
+            <input type="password" name='password' formControlName='password'>
+        </td>
+    </tr>
+    <tr>
+        <td>Picture:</td>
+        <td>
+            <input type="file" (change)="dodataSlika($event)"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Mail:</td>
+        <td>
+            <input type="text" name='mail' formControlName='mail'>
+        </td>
+    </tr>
+    <tr>
+        <td>City:</td>
+        <td>
+            <input type="text" name='city' formControlName='city'>
+        </td>
+    </tr>
+    <tr>
+        <td>Country:</td>
+        <td>
+            <input type="text" name='country' formControlName='country'>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)='azuriraj()'>Azuriraj</button>
+       </td>
+    </tr>
+</div>
+</table>
+<div *ngIf='poruka' class='com'>
+    {{poruka}}
+</div>
+<br><br>
+
+
+Pretrazite nekretnine u gradu: <input type="text" [(ngModel)]='grad'> <br>
+Pretrazite po cenama od <input type="text" [(ngModel)]='cenaOd'> do <input type="text" [(ngModel)]='cenaDo'><br>
+
+<button (click)='pretrazi()'>Pretrazi</button>
+
+
+<br><br>
+Rezultati pretrage:
+<table *ngFor='let n of nekretnine' (click)='idiNaNekretninu(n)'>
+    <br><br>
+    <div class='kartice'>
+    <tr>
+        <td>Slike:</td>
+        <td *ngFor='let s of n.slike'>
+            <img src="{{s}}" class='slika'>
+        </td>
+    </tr>
+    <tr>
+        <td>Ime:</td>
+        <td>
+            {{n.ime}}
+        </td>
+    </tr>
+    <tr>
+        <td>Grad:</td>
+        <td>
+            {{n.grad}}
+        </td>
+    </tr>
+    <tr>
+        <td>Opstina:</td>
+        <td>
+            {{n.opstina}}
+        </td>
+    </tr>
+    <tr>
+        <td>Cena</td>
+        {{n.cena}}
+    </tr>
+    <tr>
+        <td>Kategorija:</td>
+        <td>
+            {{n.kategorija}}
+        </td>
+    </tr>
+    <tr>
+        <td>Kvadratura:</td>
+        <td>
+            {{n.kvadratura}}
+        </td>
+    </tr>
+    <tr >
+        <td>brojSpratova:</td>
+        <td>
+            {{n.brojSpratova}}
+        </td>
+    </tr>
+    <tr>
+        <td>Broj soba:</td>
+        <td>
+            {{n.brojSoba}}
+        </td>
+    </tr>
+    <tr >
+        <td>Ova nekretnina se:</td>
+        <td>
+            {{n.izdajeProdaje}}
+        </td>
+    </tr>
+   
+    </div>
+</table>
+
+
+<div *ngIf='prikaziNekretnine'>
+<table *ngFor='let n of mojeNekretnine' (click)='idiNaNekretninu(n)'>
+    <br><br>
+    <div class='kartice'>
+    <tr>
+        <td>Slike:</td>
+        <td *ngFor='let s of n.slike'>
+            <img src="{{s}}" class='slika'>
+        </td>
+    </tr>
+    <tr>
+        <td>Ime:</td>
+        <td>
+            {{n.ime}}
+        </td>
+    </tr>
+    <tr>
+        <td>Grad:</td>
+        <td>
+            {{n.grad}}
+        </td>
+    </tr>
+    <tr>
+        <td>Opstina:</td>
+        <td>
+            {{n.opstina}}
+        </td>
+    </tr>
+    <tr>
+        <td>Cena</td>
+        {{n.cena}}
+    </tr>
+    <tr>
+        <td>Kategorija:</td>
+        <td>
+            {{n.kategorija}}
+        </td>
+    </tr>
+    <tr>
+        <td>Kvadratura:</td>
+        <td>
+            {{n.kvadratura}}
+        </td>
+    </tr>
+    <tr >
+        <td>brojSpratova:</td>
+        <td>
+            {{n.brojSpratova}}
+        </td>
+    </tr>
+    <tr>
+        <td>Broj soba:</td>
+        <td>
+            {{n.brojSoba}}
+        </td>
+    </tr>
+    <tr >
+        <td>Ova nekretnina se:</td>
+        <td>
+            {{n.izdajeProdaje}}
+        </td>
+    </tr>
+    <tr >
+        <td>Ponude:</td>
+        <td *ngFor='let m of n.ponude' class="ponude">
+            {{m.username}} 
+        </td>
+        <td *ngFor='let m of n.prihvacenePonude' class="ponude">
+            {{m.username}}
+        </td>
+    </tr>
+    <tr *ngIf='n.prodata ' class="com">   
+        <h2>Prodata</h2>
+    </div>
+</table>
+</div>
+
+<br><br>
+Dodaj svoju nekretninu:
+<table>
+    <div  [formGroup]="form2">
+    <tr>
+        <td>Ime:</td>
+        <td>
+            <input type="text" name='ime' formControlName='ime'>
+        </td>
+    </tr>
+    <tr>
+        <td>Adresa:</td>
+        <td>
+            <input type="text" name='adresa' formControlName='adresa'>
+        </td>
+    </tr>
+    <tr>
+        <td>Grad:</td>
+        <td>
+            <input type="text" name='grad' formControlName='grad'>
+        </td>
+    </tr>
+    <tr>
+        <td>Opstina:</td>
+        <td>
+            <input type="text" name='opstina' formControlName='opstina'>
+        </td>
+    </tr>
+    <tr>
+        <td>Kategorija:</td>
+        <td>
+            <select id="kat1" formControlName="kategorija">
+                <option value="kuca">kuca</option>
+                <option value="stan">stan</option>
+                </select>  
+         </td>
+    </tr>
+    <tr >
+        <td>broj spratova(kuca)/na kom je spratu(stan):</td>
+        <td>
+            <input type="text" name='brojSpratova' formControlName='brojSpratova'>
+        </td>
+    </tr>
+    <tr>
+        <td>Kvadratura:</td>
+        <td>
+            <input type="text" name='kvadratura' formControlName='kvadratura'>
+        </td>
+    </tr>
+    <tr>
+        <td>Broj soba:</td>
+        <td>
+            <input type="text" name='brojSoba' formControlName='brojSoba'>
+        </td>
+    </tr>
+    <tr>
+        <td>Ima namestaj:</td>
+        <input type="checkbox" formControlName='imaNamestaj'>
+    </tr>
+    <tr>
+        <td>Da li se izdaje ili prodaje nekretnina:</td>
+        <td>
+            <select id="izd1" formControlName="izdajeProdaje">
+                <option value="izdaje">izdaje</option>
+                <option value="prodaje">prodaje</option>
+            </select>             
+         </td>
+    </tr>
+    <tr>
+        <td>Slike:</td>
+        <td>
+            <input type="file" (change)="dodataMedija($event)"/>
+            <input type="file" (change)="dodataMedija($event)"/>
+            <input type="file" (change)="dodataMedija($event)"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Cena</td>
+        <input type="text" name='cena' formControlName='cena'>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)='dodajNekretninu()'>Dodaj nektetninu</button>
+       </td>
+    </tr>
+</div>
+</table>
+<div *ngIf='poruka2' class='com'>
+    {{poruka2}}
+</div>
+<br><br>
+<br><br>
+

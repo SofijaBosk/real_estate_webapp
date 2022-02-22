@@ -1,0 +1,32 @@
+.slika{
+    border: 60px;
+    height: 120px;
+}
+
+.kartice{
+    background-color: rgb(129, 236, 195);
+    border: 500px;
+    height: auto;
+    width: auto;
+    float:left;
+}
+
+.charts{
+    border: 500px;
+    height: 300px;
+    width: 400px;
+    float:left;
+}
+.lineCharts{
+    border: 500px;
+    height: 300px;
+    width: 400px;
+    float:left;
+
+}
+.ponude{
+    background-color: rgb(169, 211, 195);
+    /* border: 500px; */
+    height: auto;
+    width: auto;
+}

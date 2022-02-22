@@ -1,0 +1,29 @@
+.slika{
+    border: 200px;
+    height: 200px;
+    display:inline-block;
+}
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.kartice{
+  background-color: rgb(129, 236, 195);
+  border: 500px;
+  height: auto;
+    width: auto;
+}
+
+/* .pozadina{
+  background-color: 
+} */
+.error{
+  color: red;
+}

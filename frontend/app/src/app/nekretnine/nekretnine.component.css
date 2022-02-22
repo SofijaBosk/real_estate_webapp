@@ -1,0 +1,36 @@
+.slika{
+    border: 0px;
+    height: 120px;
+}
+
+.error{
+    color: red;
+}
+
+.kartice{
+    background-color: rgb(129, 236, 195);
+    border: 500px;
+    height: auto;
+    width: auto;
+}
+/* .karticeManje{
+    border: 500px;
+    width: 300px;
+} */
+
+.ponude{
+    background-color: rgb(169, 211, 195);
+    /* border: 500px; */
+    height: auto;
+    width: auto;
+}
+
+.kartice2{
+    background-color: rgb(129, 236, 195);
+    border: 500px;
+    height: auto;
+    width: auto;
+    float: left;
+}
+/* height: 300px;
+    width: 600px; */

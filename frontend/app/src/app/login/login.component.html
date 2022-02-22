@@ -1,0 +1,30 @@
+<form>
+    <table>
+        <tr>
+            <td>Username:</td>
+            <td>
+                <input type='text' name='username' [(ngModel)]='username'>
+            </td>
+        </tr>
+        <tr>
+            <td>Lozinka:</td>
+            <td>
+                <input type='password' name='password' [(ngModel)]='password'>
+            </td>
+        </tr>
+        <tr>
+            <td colspan='2'>
+                <button (click)='login()'>Login</button>
+            </td>
+        </tr>
+    </table>
+
+    Register <a routerLink='register'>here</a> <br>
+
+    Continue as guest <a routerLink='guest'>here</a> <br>
+    
+    <div *ngIf='message' class='error'>
+        {{message}}
+    </div>
+    
+</form>

@@ -1,0 +1,112 @@
+<div class='pozadina'>
+
+<table>
+    <tr >
+        
+        <td *ngFor='let n of sveNekretnine'>
+            <!-- (click)="idiNaNekretninu(n)" -->
+            <img  src="{{n.slike[0]}}" class='slika' >
+        </td>
+    </tr>
+</table>
+
+
+Register <a routerLink='../register'>here</a> <br>
+Log in <a routerLink=''>here</a> <br>
+
+
+
+<!-- Ovde treba prikazati promovisane nekretnine -->
+
+
+
+Pretrazite nekretnine u gradu: <input type="text" [(ngModel)]='grad'> <br>
+Pretrazite po cenama od <input type="text" [(ngModel)]='cenaOd'> do <input type="text" [(ngModel)]='cenaDo'><br>
+
+<button (click)='pretrazi()'>Pretrazi</button>
+
+<div *ngIf='message' class='error'>
+    {{message}}
+</div>
+<br>
+
+
+
+<table *ngFor='let n of nekretnine' >
+    <br><br>
+<div class="kartice">
+    <tr>
+        <td>Slike:</td>
+        <!-- *ngFor='let s of n.slike' -->
+        <td >
+            <img src="{{n.slike[0]}}" class='slika'>
+        </td>
+    </tr>
+    <tr>
+        <td>Ime:</td>
+        <td>
+            {{n.ime}}
+        </td>
+    </tr>
+    <tr>
+        <td>Grad:</td>
+        <td>
+            {{n.grad}}
+        </td>
+    </tr>
+    <tr>
+        <td>Opstina:</td>
+        <td>
+            {{n.opstina}}
+        </td>
+    </tr>
+    <tr>
+        <td>Cena</td>
+        {{n.cena}}
+    </tr>
+    <tr>
+        <td>Kategorija:</td>
+        <td>
+            {{n.kategorija}}
+        </td>
+    </tr>
+    <tr>
+        <td>Kvadratura:</td>
+        <td>
+            {{n.kvadratura}}
+        </td>
+    </tr>
+    <tr >
+        <td *ngIf='n.kategorija==="kuca"'>Broj spratova:</td>
+        <td *ngIf='n.kategorija==="stan"'>Nalazi se na spratu:</td>
+        <td>
+            {{n.brojSpratova}}
+        </td>
+    </tr>
+    <tr>
+        <td>Broj soba:</td>
+        <td>
+            {{n.brojSoba}}
+        </td>
+    </tr>
+    <tr >
+        <td>Ova nekretnina se:</td>
+        <td>
+            {{n.izdajeProdaje}}
+        </td>
+    </tr>
+   
+        <!-- <td>
+            <input type="file" (change)="dodataMedija($event)"/>
+        </td>
+        <td>
+            <input type="file" (change)="dodataMedija($event)"/>
+        </td> -->
+    
+</div>
+</table>
+
+
+</div>
+<br><br>
+<br><br>

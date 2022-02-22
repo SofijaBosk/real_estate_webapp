@@ -1,0 +1,398 @@
+
+
+
+<table>
+    <tr>
+<td style="display: block;" class="charts">
+    <canvas baseChart 
+      [data]="pieChartData1" 
+      [labels]="pieChartLabels1" 
+      [chartType]="pieChartType"
+      [options]="pieChartOptions"
+      [plugins]="pieChartPlugins"
+      [legend]="pieChartLegend">
+    </canvas>
+  </td>
+  <td style="display: block;" class="charts">
+    <canvas baseChart 
+      [data]="pieChartData2" 
+      [labels]="pieChartLabels2" 
+      [chartType]="pieChartType"
+      [options]="pieChartOptions"
+      [plugins]="pieChartPlugins"
+      [legend]="pieChartLegend">
+    </canvas>
+  </td>
+</tr>
+<tr>
+    <td style="display: block;" class="lineCharts">
+        <canvas baseChart
+          [datasets]="lineChartData1"
+          [labels]="lineChartLabels1"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+    </td>
+      <td style="display: block;" class="lineCharts">
+        <canvas baseChart
+          [datasets]="lineChartData2"
+          [labels]="lineChartLabels2"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+    </td>
+    
+</tr>
+</table>
+
+
+<div *ngIf='message' class='error'>
+    {{message}}
+</div>
+<button (click)='passwordChange()'>Promeni lozinku</button>
+
+
+<button (click)='dodajKorisnikaOtvori()' >Dodaj korisnika</button>
+<table [formGroup]="form" *ngIf='dodajKor'>
+    <tr>
+        <td>Name:</td>
+        <td>
+            <input type="text" name='name' formControlName='name' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Surname:</td> 
+        <td>
+            <input type="text" name='surname' formControlName='surname' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Username:</td>
+        <td>
+            <input type="text" name='username' formControlName='username' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Password:</td>
+        <td>
+            <input type="password" name='password' formControlName='password' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Password confirmation:</td>
+        <td>
+            <input type="password" name='password2' formControlName='password2' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Picture:</td>
+        <td>
+            <input type="file" (change)="dodataSlika($event)"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Mail:</td>
+        <td>
+            <input id='mail 'type="text" name='mail' formControlName='mail'>       
+        </td>
+    </tr>
+    <tr>
+        <td>City:</td>
+        <td>
+            <input type="text" name='city' formControlName='city' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Country:</td>
+        <td>
+            <input type="text" name='country' formControlName='country' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Type:</td>
+        <td>
+            <select id="type" formControlName="type">     
+                <option value="1">User</option>
+                <option value="0">Admin</option>
+                <option value="2">Agent</option>
+            </select> 
+            <!-- <input type="text" name='type' formControlName='type' required> -->
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)='dodajKorisnika()'>Add user</button>
+       </td>
+    </tr>
+</table>
+
+
+
+<table [formGroup]="form" *ngIf='azurirajKor'>
+    <tr>
+        <td>Name:</td>
+        <td>
+            <input type="text" name='name' formControlName='name' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Surname:</td> 
+        <td>
+            <input type="text" name='surname' formControlName='surname' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Username:</td>
+        <td>
+            <input type="text" name='username' formControlName='username' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Password:</td>
+        <td>
+            <input type="password" name='password' formControlName='password' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Picture:</td>
+        <td>
+            <input type="file" (change)="dodataSlika($event)"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Mail:</td>
+        <td>
+            <input id='mail 'type="text" name='mail' formControlName='mail'>       
+        </td>
+    </tr>
+    <tr>
+        <td>City:</td>
+        <td>
+            <input type="text" name='city' formControlName='city' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Country:</td>
+        <td>
+            <input type="text" name='country' formControlName='country' required>
+        </td>
+    </tr>
+    <tr>
+        <td>Type:</td>
+        <td>
+            <select id="type" formControlName="type">     
+                <option value="1">Odobren korisnik</option>
+                <option value="0">Admin</option>
+                <option value="2">Agent</option>
+                <option value="3">Odbijen korisnik</option>
+            </select> 
+            <!-- <input type="text" name='type' formControlName='type' required> -->
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)='azurirajKorisnikaServer()'>Azuriraj korisnika</button>
+       </td>
+    </tr>
+</table>
+
+<br>
+<br>
+
+Korisnici:
+<table *ngFor='let k of sviKorisnici' colspan="3">
+    <tr>
+        <td>
+            {{k.username}}
+        </td>
+        <td>
+            <button (click)="azurirajKorisnika(k)">azuriraj</button>
+        </td>
+        <td>
+            <button (click)="obrisiKorisnika(k)">obrisi</button>
+        </td>
+        <td *ngIf='k.type==3'>
+            <button (click)="odobriKorisnika(k)">odobri</button>
+        </td>
+    </tr>
+</table>
+
+<br><br>
+Sve nekretnine:
+<table *ngFor='let n of nekretnine' colspan="2" (click)='idiNaNekretninu(n)'>
+     <div class='kartice'>
+    <tr>
+        <td>Slike:</td>
+        <td *ngFor='let s of n.slike'>
+            <img src="{{s}}" class='slika'>
+        </td>
+    </tr>
+    <tr>
+        <td>Ime:</td>
+        <td>
+            {{n.ime}}
+        </td>
+    </tr>
+    <tr>
+        <td>Grad:</td>
+        <td>
+            {{n.grad}}
+        </td>
+    </tr>
+    <tr>
+        <td>Opstina:</td>
+        <td>
+            {{n.opstina}}
+        </td>
+    </tr>
+    <tr>
+        <td>Cena</td>
+        {{n.cena}}
+    </tr>
+    <tr>
+        <td>Kategorija:</td>
+        <td>
+            {{n.kategorija}}
+        </td>
+    </tr>
+    <tr>
+        <td>Kvadratura:</td>
+        <td>
+            {{n.kvadratura}}
+        </td>
+    </tr>
+    <tr >
+        <td *ngIf='n.kategorija==="kuca" '>Broj spratova:</td>
+        <td *ngIf='n.kategorija==="stan" '>Nalazi se na spratu:</td>
+        <td>
+            {{n.brojSpratova}}
+        </td>
+    </tr>
+    <tr>
+        <td>Broj soba:</td>
+        <td>
+            {{n.brojSoba}}
+        </td>
+    </tr>
+    <tr >
+        <td>Ova nekretnina se:</td>
+        <td>
+            {{n.izdajeProdaje}}
+        </td>
+    </tr>
+    <tr >
+        <td>Odobrena:</td>
+        <td>
+            {{n.odobrena?'da':'ne'}}
+        </td>
+    </tr>
+    <tr >
+        <td>Ponude:</td>
+        <td *ngFor='let m of n.prihvacenePonude' class="ponude">
+            {{m.username}}
+        </td>
+    </tr>
+   
+    </div>
+    <br><br>
+</table>
+
+<br><br>
+Dodaj svoju nekretninu:
+<table>
+    <div  [formGroup]="formNekretnina">
+    <tr>
+        <td>Ime:</td>
+        <td>
+            <input type="text" name='ime' formControlName='ime'>
+        </td>
+    </tr>
+    <tr>
+        <td>Adresa:</td>
+        <td>
+            <input type="text" name='adresa' formControlName='adresa'>
+        </td>
+    </tr>
+    <tr>
+        <td>Grad:</td>
+        <td>
+            <input type="text" name='grad' formControlName='grad'>
+        </td>
+    </tr>
+    <tr>
+        <td>Opstina:</td>
+        <td>
+            <input type="text" name='opstina' formControlName='opstina'>
+        </td>
+    </tr>
+    <tr>
+        <td>Kategorija:</td>
+        <td>
+            <select id="kat1" formControlName="kategorija">
+                <option value="kuca">kuca</option>
+                <option value="stan">stan</option>
+                </select>  
+         </td>
+    </tr>
+    <tr >
+        <td>broj spratova(kuca)/broj sprata na kom se nalazi(stan):</td>
+        <td>
+            <input type="text" name='brojSpratova' formControlName='brojSpratova'>
+        </td>
+    </tr>
+    <tr>
+        <td>Kvadratura:</td>
+        <td>
+            <input type="text" name='kvadratura' formControlName='kvadratura'>
+        </td>
+    </tr>
+    <tr>
+        <td>Broj soba:</td>
+        <td>
+            <input type="text" name='brojSoba' formControlName='brojSoba'>
+        </td>
+    </tr>
+    <tr>
+        <td>Ima namestaj:</td>
+        <input type="checkbox" formControlName='imaNamestaj'>
+    </tr>
+    <tr>
+        <td>Da li se izdaje ili prodaje nekretnina:</td>
+        <td>
+            <select id="izd1" formControlName="izdajeProdaje">
+                <option value="izdaje">izdaje</option>
+                <option value="prodaje">prodaje</option>
+            </select>  
+            
+         </td>
+    </tr>
+    <tr>
+        <td>Slike:</td>
+        <td>
+            <input type="file" (change)="dodataMedija($event)"/>
+            <input type="file" (change)="dodataMedija($event)"/>
+            <input type="file" (change)="dodataMedija($event)"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Cena</td>
+        <input type="text" name='cena' formControlName='cena'>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)='dodajNekretninu()'>Dodaj nektetninu</button>
+       </td>
+    </tr>
+</div>
+</table>
+<div *ngIf='message2' class='error'>
+    {{message2}}
+</div>
+<br><br>
+<br><br>

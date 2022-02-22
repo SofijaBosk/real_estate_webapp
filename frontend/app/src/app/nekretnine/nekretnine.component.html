@@ -1,0 +1,423 @@
+
+<br><br>
+ <table class='kartice'>
+    <br><br>
+    <tr>
+        <td>Slike:</td>
+        <td *ngFor='let s of trenutnaNekretnina.slike'>
+            <img src="{{s}}" class='slika'>
+        </td>
+    </tr>
+    <tr>
+        <td>Ime:</td>
+        <td>
+            {{trenutnaNekretnina.ime}}
+        </td>
+    </tr>
+    <tr>
+        <td>Grad:</td>
+        <td>
+            {{trenutnaNekretnina.grad}}
+        </td>
+    </tr>
+    <tr>
+        <td>Opstina:</td>
+        <td>
+            {{trenutnaNekretnina.opstina}}
+        </td>
+    </tr>
+    <tr>
+        <td>Cena</td>
+        {{trenutnaNekretnina.cena}}
+    </tr>
+    <tr>
+        <td>Kategorija:</td>
+        <td>
+            {{trenutnaNekretnina.kategorija}}
+        </td>
+    </tr>
+    <tr>
+        <td>Kvadratura:</td>
+        <td>
+            {{trenutnaNekretnina.kvadratura}}
+        </td>
+    </tr>
+    <!-- <tr *ngIf='trenutnaNekretnina.kategorija==="kuca"'></tr> -->
+    <tr>
+        <td *ngIf='trenutnaNekretnina.kategorija==="kuca" '>Broj spratova:</td>
+        <td *ngIf='trenutnaNekretnina.kategorija==="stan" '>Nalazi se na spratu:</td>
+        <td>
+            {{trenutnaNekretnina.brojSpratova}}
+        </td>
+    </tr>
+    <tr>
+        <td>Broj soba:</td>
+        <td>
+            {{trenutnaNekretnina.brojSoba}}
+        </td>
+    </tr>
+    <tr>
+       <td>Namestena:</td>
+       <td>
+           {{trenutnaNekretnina.imaNamestaj? 'da':'ne'}}
+       </td>
+   </tr>
+    <tr >
+        <td>Ova nekretnina se:</td>
+        <td>
+            {{trenutnaNekretnina.izdajeProdaje}}
+        </td>
+        <td *ngIf='trenutnaNekretnina.izdajeProdaje==="izdaje" '>
+            
+            {{trenutnaNekretnina.iznajmljivanjeDatumOd|date:'MM/dd/yyyy HH:mm:ss'}}
+            {{trenutnaNekretnina.iznajmljivanjeDatumDo|date:'MM/dd/yyyy HH:mm:ss'}}
+       </td>
+       <td *ngIf='trenutnaNekretnina.izdajeProdaje==="izdaje"&& notguest && !agent'>
+           Od:<input type="date" name='' [(ngModel)]='iznajmljivanjeDatumOd'><br>
+           Do:<input type="date" name='' [(ngModel)]='iznajmljivanjeDatumDo'>
+       </td>
+       <td *ngIf='trenutnaNekretnina.izdajeProdaje==="prodaje" && notguest && !agent && !vlasnik && !trenutnaNekretnina.prodata'>
+           <select [(ngModel)]='nacinPlacanja'>
+               <option value="gotovina">gotovina</option>
+               <option value="kredit">kredit</option>
+           </select>
+           <div *ngIf='nacinPlacanja==="kredit" '>
+               Kredit je 20%:{{kredit}}
+           </div>
+       </td>
+    </tr>
+    
+    <tr >
+       <td>Vlasnik:</td>
+       <td>
+           {{trenutnaNekretnina.vlasnik}}
+       </td>
+   </tr>
+        <!-- <td>
+            <input type="file" (change)="dodataMedija($event)"/>
+        </td>
+        <td>
+            <input type="file" (change)="dodataMedija($event)"/>
+        </td> -->
+   <tr *ngIf='notguest && !agent && !vlasnik && !trenutnaNekretnina.prodata '>   
+           <button (click)='kontaktirajVlasnika()'> Daj ponudu </button>
+   
+   </tr>
+   <tr *ngIf='trenutnaNekretnina.prodata ' class="error">   
+    <h2>Prodata</h2>
+
+</tr>
+
+</table>
+
+
+<br>
+ <table *ngIf='agent || vlasnik' class='kartice'>
+    Izmeni nekretninu:
+     <div  [formGroup]="form2">
+        <tr>
+            <td>Slike:</td> 
+            <td *ngFor='let s of trenutnaNekretnina.slike'>
+                    <img src="{{s}}" class='slika'>
+             </td>
+             <td>
+                <input type="file" (change)="dodataMedija2($event)"/>
+                <input type="file" (change)="dodataMedija2($event)"/>
+                <input type="file" (change)="dodataMedija2($event)"/>
+             </td>
+         </tr>
+     <tr>
+         <td>Ime:</td>
+         <td>
+             <input type="text" name='ime' formControlName='ime'>
+         </td>
+     </tr>
+     <tr>
+         <td>Adresa:</td>
+         <td>
+             <input type="text" name='adresa' formControlName='adresa'>
+         </td>
+     </tr>
+     <tr>
+         <td>Grad:</td>
+         <td>
+             <input type="text" name='grad' formControlName='grad'>
+         </td>
+     </tr>
+     <tr>
+         <td>Opstina:</td>
+         <td>
+             <input type="text" name='opstina' formControlName='opstina'>
+         </td>
+     </tr>
+     <tr>
+         <td>Kategorija:</td>
+         <td>
+             <select id="kat1" formControlName="kategorija">
+                 <option value="kuca">kuca</option>
+                 <option value="stan">stan</option>
+                 </select>  
+          </td>
+     </tr>
+     <tr >
+         <td>brojSpratova/Na kom je spratu:</td>
+         <td>
+             <input type="text" name='brojSpratova' formControlName='brojSpratova'>
+         </td>
+     </tr>
+     <tr>
+         <td>Kvadratura:</td>
+         <td>
+             <input type="text" name='kvadratura' formControlName='kvadratura'>
+         </td>
+     </tr>
+     <tr>
+         <td>Broj soba:</td>
+         <td>
+             <input type="text" name='brojSoba' formControlName='brojSoba'>
+         </td>
+     </tr>
+     <tr>
+         <td>Ima namestaj:</td>
+         <input type="checkbox" formControlName='imaNamestaj'>
+     </tr>
+     <tr>
+        <td>Da li se izdaje ili prodaje nekretnina:</td>
+        <td>
+             <select id="izd1" formControlName="izdajeProdaje">
+                 <option value="izdaje">izdaje</option>
+                 <option value="prodaje">prodaje</option>
+                 </select>               
+        </td>
+        
+     </tr>
+     <tr>
+         <td>Cena</td>
+         <input type="text" name='cena' formControlName='cena'>
+     </tr>
+     <tr>
+         <td>Vlasnik</td>
+         {{trenutnaNekretnina.vlasnik}}
+     </tr>
+     <tr *ngIf='agent'>
+        <td>Odobri:</td>
+        <input type="checkbox" formControlName='odobrena'>
+    </tr>
+     <tr *ngIf='agent'>
+        <td>Promovisi:</td>
+        <input type="checkbox" formControlName='promovisana'>
+    </tr>
+     <tr>
+         <td colspan="2">
+             <button (click)='azurirajNekretninu()'>Azuriraj nektetninu</button>
+        </td>
+     </tr>
+ </div>
+ </table>
+
+ <div *ngIf='message' class='error'>
+    {{message}}
+ </div>
+
+<br><br><br>
+
+
+ 
+
+
+
+
+
+<table *ngIf='vlasnik'>
+    <h2>Ponude za nekretninu:</h2>
+<div *ngFor='let n of trenutnaNekretnina.ponude'>
+    <div class="ponude">
+    <tr >        
+        <td >
+          <h4>Korisnik: {{n.username}}</h4> 
+        </td>
+    </tr>
+    <tr>
+        <div *ngIf='n.tipPlacanja==="iznajmljivanje"'>
+        {{n.tipPlacanja}}
+        
+        <td >
+            Od: {{n.iznajmljivanjeDatumOd|date:'MM/dd/yyyy HH:mm:ss'}}
+        </td>
+        <td >
+           Do: {{n.iznajmljivanjeDatumDo|date:'MM/dd/yyyy HH:mm:ss'}}
+        </td>
+    </div>
+        
+        <div *ngIf='n.tipPlacanja==="kupovina" '>
+            {{n.nacinPlacanja}}
+        </div>
+    </tr>
+    <tr>
+        <td></td>
+        <td >
+           <p> --{{n.datumStvaranja|date:'MM/dd/yyyy HH:mm:ss'}}--</p>
+        </td>
+        
+    </tr>
+    <tr>
+    <td>
+        <button (click)='prihvatiPonudu(n)' >Prihvati</button>
+        <button (click)='odbaciPonudu(n)' >Odbij</button>
+    </td>
+    </tr>
+</div>
+    <br><br>
+</div>
+</table>
+
+<table *ngIf='agent||vlasnik||kupac'>
+    <h2>Potvrdjene ponude</h2>
+<div *ngFor='let n of trenutnaNekretnina.prihvacenePonude'>
+    <div *ngIf="n.username===currentUser.username||agent||vlasnik" class="ponude">
+        <tr >        
+            <td >
+                
+              <h4>Korisnik: {{n.username}}</h4> 
+            </td>
+        </tr>
+        <tr>
+            <div *ngIf='n.tipPlacanja==="iznajmljivanje"'>
+            {{n.tipPlacanja}}
+            <td >
+                Od: {{n.iznajmljivanjeDatumOd|date:'MM/dd/yyyy HH:mm:ss'}}
+            </td>
+            <td >
+               Do: {{n.iznajmljivanjeDatumDo|date:'MM/dd/yyyy HH:mm:ss'}}
+            </td>
+            </div>
+            <div *ngIf='n.tipPlacanja==="kupovina"'>
+                {{n.nacinPlacanja}}
+            </div>
+        </tr>
+        <tr *ngIf='n.status==="nije odobrena" '>
+            <td>Datum stvaranja ponude</td>
+            <td >
+               <p> --{{n.datumStvaranja|date:'MM/dd/yyyy HH:mm:ss'}}--</p>
+            </td>
+        </tr>
+        <tr *ngIf='n.status==="odobren" '>
+            <td>Datum potvrde ponude</td>
+            <td >
+               <p> --{{n.datumPotvrde|date:'MM/dd/yyyy HH:mm:ss'}}--</p>
+            </td>
+        </tr>
+        <tr *ngIf='agent && n.status==="nije odobrena"'>
+            <td>
+                <button (click)='obobriPonuduKaoAgent(n)' >Odobri transakciju</button>
+            </td>
+        </tr>
+        
+</div>
+</div>
+<br><br>
+</table>
+
+
+
+
+
+
+
+
+
+<br><br>
+<!-- *ngIf='notguest|| ||agent'  -->
+<table class="kartice">
+    Dodaj svoju nekretninu:
+    <div  [formGroup]="form">
+    <tr>
+        <td>Ime:</td>
+        <td>
+            <input type="text" name='ime' formControlName='ime'>
+        </td>
+    </tr>
+    <tr>
+        <td>Adresa:</td>
+        <td>
+            <input type="text" name='adresa' formControlName='adresa'>
+        </td>
+    </tr>
+    <tr>
+        <td>Grad:</td>
+        <td>
+            <input type="text" name='grad' formControlName='grad'>
+        </td>
+    </tr>
+    <tr>
+        <td>Opstina:</td>
+        <td>
+            <input type="text" name='opstina' formControlName='opstina'>
+        </td>
+    </tr>
+    <tr>
+        <td>Kategorija:</td>
+        <td>
+            <select id="kat1" formControlName="kategorija">
+                <option value="kuca">kuca</option>
+                <option value="stan">stan</option>
+                </select> 
+         </td>
+    </tr>
+    <tr >
+        <td>brojSpratova:</td>
+        <td>
+            <input type="text" name='brojSpratova' formControlName='brojSpratova'>
+        </td>
+    </tr>
+    <tr>
+        <td>Kvadratura:</td>
+        <td>
+            <input type="text" name='kvadratura' formControlName='kvadratura'>
+        </td>
+    </tr>
+    <tr>
+        <td>Broj soba:</td>
+        <td>
+            <input type="text" name='brojSoba' formControlName='brojSoba'>
+        </td>
+    </tr>
+    <tr>
+        <td>Ima namestaj:</td>
+        <input type="checkbox" formControlName='imaNamestaj'>
+    </tr>
+    <tr>
+        <td>Da li se izdaje ili prodaje nekretnina:</td>
+        <td>
+            <select id="izd1" formControlName="izdajeProdaje">
+                <option value="izdaje">izdaje</option>
+                <option value="prodaje">prodaje</option>
+                </select>  
+         </td>
+    </tr>
+    <tr>
+        <td>Slike:</td>
+        <td>
+            <input type="file" (change)="dodataMedija($event)"/>
+            <input type="file" (change)="dodataMedija($event)"/>
+            <input type="file" (change)="dodataMedija($event)"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Cena</td>
+        <input type="text" name='cena' formControlName='cena'>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)='dodajNekretninu()'>Dodaj nektetninu</button>
+       </td>
+    </tr>
+</div>
+</table>
+<div *ngIf='message2' class='error'>
+    {{message2}}
+ </div>
+
+
+ <br><br>
+ <br><br>

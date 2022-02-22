@@ -1,0 +1,26 @@
+.slika{
+    border: 50px;
+    height: 120px;
+}
+.com{
+    color: red;
+}
+
+.kartice{
+    background-color: rgb(129, 236, 195);
+    border: 500px;
+    height: auto;
+    width: auto;
+}
+.promovisane{
+    border: 200px;
+    height: 200px;
+    display:inline-block;
+}
+
+.ponude{
+    background-color: rgb(169, 211, 195);
+    /* border: 500px; */
+    height: auto;
+    width: auto;
+}
