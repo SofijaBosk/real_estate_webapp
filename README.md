@@ -1,8 +1,8 @@
 
-# Web application for real estate
+# Web Application for a Real Estate Agency
 Created in Angular and Node.js
 
-What to install: <br>
+## What to install: <br>
 ```
 npm install multer
 npm install ng2-charts@2.4.2 --save 
